@@ -9,7 +9,7 @@ For the W3 Enhanced version visit: (https://emnawer.github.io/w3e/)
 - Fix: remove `.w3-sidebar.w3-collapse{display:block!important}` from large screen media.
 - Fix: update normalization.
 - Fix: `body,HTML` font size increased from 15px to 16px for better support on modern screens.
-- Fix: heading `h1` to `h6` font size increased by 2px. Previous `h1` size 16px same size as new `body` font size, now `h1` 18px in size.
+- Fix: heading `h1` to `h6` font size increased by 2px. Previous `h6` size 16px same size as new `body` font size, now `h6` 18px in size.
 - BREAKING CHANGE: need to add `display:block` to element style to always show sidebar.
 
 
