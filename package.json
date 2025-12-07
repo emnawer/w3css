@@ -1,0 +1,16 @@
+{
+  "name": "w3-modern",
+  "version": "5.0.0-alpha.1",
+  "description": "Modern SASS wrapper for W3.CSS",
+  "scripts": {
+    "prebuild": "mkdir -p src/base && cp w3.css src/base/_legacy.scss",
+    "build": "npm run prebuild && sass src/w3-modern.scss dist/w3-modern.css --no-source-map --style=expanded",
+    "build:min": "npm run prebuild && sass src/w3-modern.scss dist/w3-modern.min.css --no-source-map --style=compressed",
+    "watch": "npm run prebuild && sass --watch src/w3-modern.scss:dist/w3-modern.css"
+  },
+  "author": "Emnawer",
+  "license": "MIT",
+  "devDependencies": {
+    "sass": "^1.70.0"
+  }
+}

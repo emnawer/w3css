@@ -1,0 +1,15 @@
+/* Global Design Tokens
+  These allow users to change the framework without recompiling SASS.
+*/
+:root {
+  /* The Base Spacing Scale */
+  --w3-s-xxs:  4px;
+  --w3-s-xs:   6px;
+  --w3-s-s:   10px;
+  --w3-s-m:   16px; /* standard w3-padding */
+  --w3-s-l:   26px;
+  --w3-s-xl:  42px;
+  --w3-s-xxl: 68px;
+  --w3-s-3xl: 110px; /* experimental */
+  --w3-s-4xl: 177px; /* experimental */
+}

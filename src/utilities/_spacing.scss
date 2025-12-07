@@ -1,0 +1,39 @@
+@use 'variables';
+
+// Map specific Semantic Names to Variables
+$spacing-map: (
+  'xxs': var(--w3-s-xxs),
+  'xs':  var(--w3-s-xs),
+  's':   var(--w3-s-s),
+  'm':   var(--w3-s-m),
+  'l':   var(--w3-s-l),
+  'xl':  var(--w3-s-xl),
+  '2xl': var(--w3-s-2xl), // Ensure this exists in your variables
+  '3xl': var(--w3-s-3xl), // Ensure this exists in your variables
+  '4xl': var(--w3-s-4xl)  // Your new 256px monster
+);
+
+@each $name, $value in $spacing-map {
+  // 1. Padding & Margin (e.g., w3-p-2xl)
+  .w3-p-#{$name} { padding: $value !important; }
+  .w3-m-#{$name} { margin: $value !important; }
+
+  // 2. Vertical Axis (Top/Bottom)
+  .w3-py-#{$name} { padding-top: $value !important; padding-bottom: $value !important; }
+  .w3-my-#{$name} { margin-top: $value !important; margin-bottom: $value !important; }
+
+  // 3. Horizontal Axis (Left/Right)
+  .w3-px-#{$name} { padding-left: $value !important; padding-right: $value !important; }
+  .w3-mx-#{$name} { margin-left: $value !important; margin-right: $value !important; }
+
+  // 4. Individual Sides (Top, Bottom, Left, Right)
+  .w3-pt-#{$name} { padding-top: $value !important; }
+  .w3-pb-#{$name} { padding-bottom: $value !important; }
+  .w3-pl-#{$name} { padding-left: $value !important; }
+  .w3-pr-#{$name} { padding-right: $value !important; }
+  
+  .w3-mt-#{$name} { margin-top: $value !important; }
+  .w3-mb-#{$name} { margin-bottom: $value !important; }
+  .w3-ml-#{$name} { margin-left: $value !important; }
+  .w3-mr-#{$name} { margin-right: $value !important; }
+}
