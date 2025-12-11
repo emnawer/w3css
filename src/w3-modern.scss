@@ -1,0 +1,13 @@
+/* W3-Modern: Utility-First Evolution */
+
+/* 1. Base Framework (Auto-generated from root w3.css) */
+@use 'base/legacy';
+
+/* 2. Global Variables (CSS Custom Properties) */
+@use 'utilities/variables';
+
+/* 3. Utility Generators */
+@use 'utilities/spacing';
+@use 'utilities/colors';
+@use 'utilities/layout';
+@use 'utilities/effects';

@@ -1,12 +1,16 @@
 {
   "name": "w3-modern",
-  "version": "5.0.0-alpha.1",
+  "version": "5.0.0-alpha.2",
   "description": "Modern SASS wrapper for W3.CSS",
   "scripts": {
     "prebuild": "mkdir -p src/base && cp w3.css src/base/_legacy.scss",
-    "build": "npm run prebuild && sass src/w3-modern.scss dist/w3-modern.css --no-source-map --style=expanded",
-    "build:min": "npm run prebuild && sass src/w3-modern.scss dist/w3-modern.min.css --no-source-map --style=compressed",
-    "watch": "npm run prebuild && sass --watch src/w3-modern.scss:dist/w3-modern.css"
+    
+    "build:modern": "sass src/w3-modern.scss w3-modern.css --no-source-map --style=expanded",
+    "build:deprecated": "sass src/w3-deprecated.scss w3-deprecated.css --no-source-map --style=expanded",
+    
+    "build": "npm run prebuild && npm run build:modern && npm run build:deprecated",
+    
+    "watch": "npm run prebuild && sass --watch src/w3-modern.scss:w3-modern.css src/w3-deprecated.scss:w3-deprecated.css"
   },
   "author": "Emnawer",
   "license": "MIT",

@@ -3,13 +3,68 @@
 */
 :root {
   /* The Base Spacing Scale */
-  --w3-s-xxs:  4px;
-  --w3-s-xs:   6px;
-  --w3-s-s:   10px;
-  --w3-s-m:   16px; /* standard w3-padding */
-  --w3-s-l:   26px;
-  --w3-s-xl:  42px;
-  --w3-s-xxl: 68px;
-  --w3-s-3xl: 110px; /* experimental */
-  --w3-s-4xl: 177px; /* experimental */
+  --w3-s-xxs:  6px;
+  --w3-s-xs:   9px;
+  --w3-s-s:   15px;
+  --w3-s-m:   24px; /* base for fibonacci scale */
+  --w3-s-l:   39px;
+  --w3-s-xl:  63px;
+  --w3-s-xxl: 102px;
+  --w3-s-3xl: 164px; /* experimental */
+  --w3-s-4xl: 266px; /* experimental */
+}
+
+/* 2. COLOR PALETTE (The Raw Paint) */
+:root {
+  --w3-ref-white: #ffffff;
+  --w3-ref-black: #000000;
+  --w3-ref-gray-50: #f9f9f9;
+  --w3-ref-gray-100: #e0e0e0;
+  --w3-ref-gray-800: #333333;
+  --w3-ref-gray-900: #1a1a1a;
+  
+  --w3-ref-red: #f44336;
+  --w3-ref-blue: #2196F3;
+  --w3-ref-green: #4CAF50;
+}
+
+/* 3. SEMANTIC THEME */
+:root, [data-theme="light"] {
+  --w3-bg-primary: var(--w3-ref-white);
+  --w3-bg-surface: var(--w3-ref-gray-50);
+  --w3-text-primary: var(--w3-ref-black);
+  --w3-text-secondary: var(--w3-ref-gray-800);
+  --w3-border-color: var(--w3-ref-gray-100);
+}
+
+/* 4. DARK MODE */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --w3-bg-primary: var(--w3-ref-gray-900);
+    --w3-bg-surface: var(--w3-ref-gray-800);
+    --w3-text-primary: var(--w3-ref-white);
+    --w3-text-secondary: var(--w3-ref-gray-100);
+    --w3-border-color: var(--w3-ref-gray-800);
+  }
+}
+
+[data-theme="dark"] {
+  --w3-bg-primary: var(--w3-ref-gray-900);
+  --w3-bg-surface: var(--w3-ref-gray-800);
+  --w3-text-primary: var(--w3-ref-white);
+  --w3-text-secondary: var(--w3-ref-gray-100);
+  --w3-border-color: var(--w3-ref-gray-800);
+}
+
+/* 5. VISUAL EFFECTS */
+:root {
+  --w3-r-s:  4px;
+  --w3-r-m:  8px;
+  --w3-r-l:  16px;
+  --w3-r-full: 9999px;
+
+  --w3-shadow-s:  0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --w3-shadow-m:  0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --w3-shadow-l:  0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --w3-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }

@@ -1,6 +1,6 @@
 @use 'variables';
 
-// Map specific Semantic Names to Variables
+// 1. Define the Map (Short Code -> Variable)
 $spacing-map: (
   'xxs': var(--w3-s-xxs),
   'xs':  var(--w3-s-xs),
@@ -8,32 +8,71 @@ $spacing-map: (
   'm':   var(--w3-s-m),
   'l':   var(--w3-s-l),
   'xl':  var(--w3-s-xl),
-  '2xl': var(--w3-s-2xl), // Ensure this exists in your variables
-  '3xl': var(--w3-s-3xl), // Ensure this exists in your variables
-  '4xl': var(--w3-s-4xl)  // Your new 256px monster
+  'xxl': var(--w3-s-xxl),
+  '3xl': var(--w3-s-3xl),
+  '4xl': var(--w3-s-4xl)
 );
 
-@each $name, $value in $spacing-map {
-  // 1. Padding & Margin (e.g., w3-p-2xl)
-  .w3-p-#{$name} { padding: $value !important; }
-  .w3-m-#{$name} { margin: $value !important; }
+// 2. Define Verbose Mapping (Short Code -> Readable Name)
+// STRATEGY: Use full words for core sizes (match W3 style), use T-shirt codes for extremes (shortest understandable).
+$verbose-names: (
+  'xxs': 'xxs',      // Was 'xxsmall'
+  'xs':  'xs',       // Was 'xsmall'
+  's':   'small',    // Keep 'small' for classic W3 readability
+  'm':   'medium',   // Keep 'medium'
+  'l':   'large',    // Keep 'large'
+  'xl':  'xl',       // Was 'xlarge'
+  'xxl': 'xxl',      // Was 'xxlarge'
+  '3xl': '3xl',      // Was '3xlarge'
+  '4xl': '4xl'       // Was '4xlarge'
+);
 
-  // 2. Vertical Axis (Top/Bottom)
-  .w3-py-#{$name} { padding-top: $value !important; padding-bottom: $value !important; }
-  .w3-my-#{$name} { margin-top: $value !important; margin-bottom: $value !important; }
+@each $code, $value in $spacing-map {
+  // Get the readable name (e.g. "small")
+  $name: map-get($verbose-names, $code);
 
-  // 3. Horizontal Axis (Left/Right)
-  .w3-px-#{$name} { padding-left: $value !important; padding-right: $value !important; }
-  .w3-mx-#{$name} { margin-left: $value !important; margin-right: $value !important; }
-
-  // 4. Individual Sides (Top, Bottom, Left, Right)
-  .w3-pt-#{$name} { padding-top: $value !important; }
-  .w3-pb-#{$name} { padding-bottom: $value !important; }
-  .w3-pl-#{$name} { padding-left: $value !important; }
-  .w3-pr-#{$name} { padding-right: $value !important; }
+  // --- SHORT SYNTAX (e.g. w3-p-s) ---
+  .w3-p-#{$code}  { padding: $value !important; }
+  .w3-m-#{$code}  { margin: $value !important; }
   
-  .w3-mt-#{$name} { margin-top: $value !important; }
-  .w3-mb-#{$name} { margin-bottom: $value !important; }
-  .w3-ml-#{$name} { margin-left: $value !important; }
-  .w3-mr-#{$name} { margin-right: $value !important; }
+  .w3-py-#{$code} { padding-top: $value !important; padding-bottom: $value !important; }
+  .w3-px-#{$code} { padding-left: $value !important; padding-right: $value !important; }
+  .w3-my-#{$code} { margin-top: $value !important; margin-bottom: $value !important; }
+  .w3-mx-#{$code} { margin-left: $value !important; margin-right: $value !important; }
+
+  .w3-pt-#{$code} { padding-top: $value !important; }
+  .w3-pb-#{$code} { padding-bottom: $value !important; }
+  .w3-pl-#{$code} { padding-left: $value !important; }
+  .w3-pr-#{$code} { padding-right: $value !important; }
+  
+  .w3-mt-#{$code} { margin-top: $value !important; }
+  .w3-mb-#{$code} { margin-bottom: $value !important; }
+  .w3-ml-#{$code} { margin-left: $value !important; }
+  .w3-mr-#{$code} { margin-right: $value !important; }
+
+
+  // --- VERBOSE ALIASES (e.g. w3-padding-small, w3-padding-xxs) ---
+  @if $name {
+    // Padding & Margin
+    .w3-padding-#{$name} { padding: $value !important; }
+    .w3-margin-#{$name}  { margin: $value !important; }
+
+    // Special Case: "w3-padding" (without size) usually defaults to medium (16px) in Legacy.
+    // We can explicitly support that if $code == 'm'
+    @if $code == 'm' {
+      .w3-padding { padding: $value !important; }
+      .w3-margin  { margin: $value !important; }
+    }
+
+    // Directional Aliases (Readable)
+    .w3-padding-top-#{$name}    { padding-top: $value !important; }
+    .w3-padding-bottom-#{$name} { padding-bottom: $value !important; }
+    .w3-padding-left-#{$name}   { padding-left: $value !important; }
+    .w3-padding-right-#{$name}  { padding-right: $value !important; }
+
+    .w3-margin-top-#{$name}     { margin-top: $value !important; }
+    .w3-margin-bottom-#{$name}  { margin-bottom: $value !important; }
+    .w3-margin-left-#{$name}    { margin-left: $value !important; }
+    .w3-margin-right-#{$name}   { margin-right: $value !important; }
+  }
 }

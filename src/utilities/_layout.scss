@@ -1,0 +1,65 @@
+@use 'variables';
+
+/* 1. FLEXBOX TOOLKIT */
+.w3-flex {
+  display: flex !important;
+}
+
+.w3-flex-col {
+  flex-direction: column !important;
+}
+
+.w3-flex-row {
+  flex-direction: row !important;
+}
+
+.w3-flex-wrap {
+  flex-wrap: wrap !important;
+}
+
+/* Alignment Utilities */
+.w3-items-center { align-items: center !important; }
+.w3-items-start  { align-items: flex-start !important; }
+.w3-items-end    { align-items: flex-end !important; }
+.w3-items-stretch{ align-items: stretch !important; }
+
+.w3-justify-center { justify-content: center !important; }
+.w3-justify-between{ justify-content: space-between !important; }
+.w3-justify-start  { justify-content: flex-start !important; }
+.w3-justify-end    { justify-content: flex-end !important; }
+
+
+/* 2. CSS GRID TOOLKIT */
+.w3-grid {
+  display: grid !important;
+  /* Default to 1 column */
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+/* Fixed Column Utilities (1 to 12) */
+@for $i from 1 through 12 {
+  .w3-grid-cols-#{$i} {
+    grid-template-columns: repeat($i, minmax(0, 1fr)) !important;
+  }
+}
+
+/* 3. GAP UTILITIES */
+/* Synced with _spacing.scss */
+
+$spacing-map: (
+  'xxs': var(--w3-s-xxs),
+  'xs':  var(--w3-s-xs),
+  's':   var(--w3-s-s),
+  'm':   var(--w3-s-m),
+  'l':   var(--w3-s-l),
+  'xl':  var(--w3-s-xl),
+  'xxl': var(--w3-s-xxl),
+  '3xl': var(--w3-s-3xl), // Experimental
+  '4xl': var(--w3-s-4xl)  // Experimental
+);
+
+@each $name, $value in $spacing-map {
+  .w3-gap-#{$name} {
+    gap: $value !important;
+  }
+}
