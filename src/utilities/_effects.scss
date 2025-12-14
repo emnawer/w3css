@@ -4,29 +4,50 @@
 .w3-border {
   border: 1px solid var(--w3-border-color) !important;
 }
-
 .w3-border-0 { border: 0 !important; }
 
-/* Side Borders */
-.w3-border-t { border-top: 1px solid var(--w3-border-color) !important; }
-.w3-border-b { border-bottom: 1px solid var(--w3-border-color) !important; }
-.w3-border-l { border-left: 1px solid var(--w3-border-color) !important; }
-.w3-border-r { border-right: 1px solid var(--w3-border-color) !important; }
+/* Side Borders Generator */
+$sides: (
+  't': 'top',
+  'b': 'bottom',
+  'l': 'left',
+  'r': 'right'
+);
+
+@each $alias, $property in $sides {
+  .w3-border-#{$alias} {
+    border-#{$property}: 1px solid var(--w3-border-color) !important;
+  }
+}
 
 /* 2. ROUNDED CORNERS (Radius) */
-.w3-round-s    { border-radius: var(--w3-r-s) !important; }
-.w3-round-m    { border-radius: var(--w3-r-m) !important; } /* Standard w3-round */
-.w3-round-l    { border-radius: var(--w3-r-l) !important; }
-.w3-round-full { border-radius: var(--w3-r-full) !important; }
-.w3-round-none { border-radius: 0 !important; }
+/* Standardized Loop using S/M/L naming */
+$radius-map: (
+  's':    var(--w3-r-s),
+  'm':    var(--w3-r-m),
+  'l':    var(--w3-r-l),
+  'full': var(--w3-r-full),
+  'none': 0
+);
+
+@each $name, $value in $radius-map {
+  .w3-round-#{$name} { border-radius: $value !important; }
+}
 
 /* 3. SHADOWS (Cards) */
-.w3-card-s  { box-shadow: var(--w3-shadow-s) !important; }
-.w3-card-m  { box-shadow: var(--w3-shadow-m) !important; } /* Classic w3-card-2 */
-.w3-card-l  { box-shadow: var(--w3-shadow-l) !important; } /* Classic w3-card-4 */
-.w3-card-xl { box-shadow: var(--w3-shadow-xl) !important; }
-.w3-shadow-none { box-shadow: none !important; }
+/* Standardized Loop using S/M/L naming */
+$shadow-map: (
+  's':    var(--w3-shadow-s),
+  'm':    var(--w3-shadow-m),
+  'l':    var(--w3-shadow-l),
+  'xl':   var(--w3-shadow-xl),
+  'none': none
+);
 
-/* Alias for compatibility */
-.w3-card { @extend .w3-card-m; }
+@each $name, $value in $shadow-map {
+  .w3-card-#{$name} { box-shadow: $value !important; }
+}
+
+/* 4. COMPATIBILITY ALIASES */
+.w3-card  { @extend .w3-card-m; }
 .w3-round { @extend .w3-round-m; }

@@ -4,13 +4,10 @@
   "description": "Modern SASS wrapper for W3.CSS",
   "scripts": {
     "prebuild": "mkdir -p src/base && cp w3.css src/base/_legacy.scss",
-    
     "build:modern": "sass src/w3-modern.scss w3-modern.css --no-source-map --style=expanded",
-    "build:deprecated": "sass src/w3-deprecated.scss w3-deprecated.css --no-source-map --style=expanded",
-    
-    "build": "npm run prebuild && npm run build:modern && npm run build:deprecated",
-    
-    "watch": "npm run prebuild && sass --watch src/w3-modern.scss:w3-modern.css src/w3-deprecated.scss:w3-deprecated.css"
+    "build:legacy": "sass src/w3-legacy.scss w3-legacy.css --no-source-map --style=expanded",
+    "build": "npm run prebuild && npm run build:modern && npm run build:legacy",
+    "watch": "npm run prebuild && sass --watch src/w3-modern.scss:w3-modern.css src/w3-legacy.scss:w3-legacy.css"
   },
   "author": "Emnawer",
   "license": "MIT",

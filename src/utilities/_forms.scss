@@ -1,0 +1,150 @@
+@use 'variables';
+
+/* 1. BASE INPUT STYLES */
+/* Standardizes text inputs, selects, and textareas */
+
+.w3-input,
+.w3-select,
+.w3-textarea {
+  display: block;
+  width: 100%;
+  padding: var(--w3-s-s); /* Default to 'small' padding (10px) */
+  border: 1px solid var(--w3-border-color);
+  background-color: var(--w3-bg-surface);
+  color: var(--w3-text-primary);
+  border-radius: var(--w3-r-s);
+  outline: none;
+  font-family: inherit;
+  transition: border-color 0.2s, box-shadow 0.2s;
+
+  /* Focus State (Reusing Accessibility Focus Color) */
+  &:focus {
+    border-color: var(--w3-focus-color);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--w3-focus-color), transparent 80%);
+  }
+
+  /* Disabled State */
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background-color: color-mix(in srgb, var(--w3-bg-surface), var(--w3-text-primary) 10%);
+  }
+}
+
+.w3-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+
+/* 2. CUSTOM CHECKBOX & RADIO */
+/* Removes browser default and draws pure CSS shapes */
+
+.w3-check,
+.w3-radio {
+  appearance: none; /* Hide native control */
+  display: inline-grid;
+  place-content: center;
+  width: 1.2em;
+  height: 1.2em;
+  border: 1px solid var(--w3-text-secondary);
+  border-radius: var(--w3-r-s); /* Checkbox is slightly rounded */
+  background-color: var(--w3-bg-surface);
+  color: var(--w3-focus-color); /* The "Active" color */
+  margin-right: 0.5em;
+  cursor: pointer;
+
+  /* The "Check" mark (Hidden by default) */
+  &::before {
+    content: "";
+    width: 0.65em;
+    height: 0.65em;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 1em 1em currentColor; /* Fills the shape with color */
+  }
+
+  /* Checked State */
+  &:checked {
+    border-color: currentColor;
+  }
+  
+  &:checked::before {
+    transform: scale(1);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--w3-focus-color);
+    outline-offset: 2px;
+  }
+}
+
+/* Radio Specifics (Circle) */
+.w3-radio {
+  border-radius: 50%;
+  
+  &::before {
+    border-radius: 50%;
+  }
+}
+
+/* Checkbox Specifics (Checkmark shape mask could be added here, 
+   but for pure CSS/No SVG dependence, a square fill is safer and robust) */
+.w3-check::before {
+  transform-origin: center;
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+}
+
+
+/* 3. THE SWITCH (CSS Toggle) */
+/* Structure: <input type="checkbox" class="w3-switch"> */
+
+.w3-switch {
+  appearance: none;
+  position: relative;
+  width: 3em;
+  height: 1.5em;
+  border-radius: 2em; /* Pill shape */
+  background-color: var(--w3-border-color);
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  /* The Knob */
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0.1em;
+    left: 0.1em;
+    width: 1.3em;
+    height: 1.3em;
+    border-radius: 50%;
+    background-color: white;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    transition: transform 0.3s;
+  }
+
+  /* Checked State (Active) */
+  &:checked {
+    background-color: var(--w3-focus-color);
+  }
+
+  &:checked::after {
+    transform: translateX(1.5em);
+  }
+}
+
+
+/* 4. VALIDATION STATES */
+/* Automatically style valid/invalid inputs */
+
+.w3-input:invalid:not(:placeholder-shown) {
+  border-color: var(--w3-ref-red);
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23f44336'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linecap='round' d='M6 3.5v3M6 8.5h.01'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 2.5em;
+}
+
+.w3-input:valid:not(:placeholder-shown) {
+  border-color: var(--w3-ref-green);
+}

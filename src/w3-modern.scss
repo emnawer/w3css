@@ -1,13 +1,15 @@
-/* W3-Modern: Utility-First Evolution */
+/* W3-Modern: Utility-First Engine */
 
-/* 1. Base Framework (Auto-generated from root w3.css) */
-@use 'base/legacy';
+/* 1. Base Layer */
+@use 'base/reset';
 
-/* 2. Global Variables (CSS Custom Properties) */
+/* 2. Utility Layer */
 @use 'utilities/variables';
-
-/* 3. Utility Generators */
+@use 'utilities/breakpoints'; // <--- (Must be before display)
 @use 'utilities/spacing';
 @use 'utilities/colors';
 @use 'utilities/layout';
 @use 'utilities/effects';
+@use 'utilities/display';
+@use 'utilities/accessibility';
+@use 'utilities/forms';

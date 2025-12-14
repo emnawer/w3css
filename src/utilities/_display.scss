@@ -1,0 +1,29 @@
+@use 'breakpoints' as *;
+
+/* 1. BASE DISPLAY UTILITIES */
+.w3-block { display: block !important; }
+.w3-inline { display: inline !important; }
+.w3-inline-block { display: inline-block !important; }
+.w3-hide { display: none !important; }
+
+/* 2. RESPONSIVE SUFFIXES (Mobile-First) */
+/* Example: w3-medium-hide = Hide on Tablet AND LARGER */
+/* Example: w3-large-block = Becomes block on Desktop AND LARGER */
+
+$sizes: 'medium', 'large', 'xlarge';
+
+@each $size in $sizes {
+  @include respond-to($size) {
+    
+    // Visibility
+    .w3-#{$size}-hide { display: none !important; }
+    .w3-#{$size}-show { display: block !important; } // Assumes block usually
+    
+    // Display Types
+    .w3-#{$size}-block { display: block !important; }
+    .w3-#{$size}-inline { display: inline !important; }
+    .w3-#{$size}-flex  { display: flex !important; }
+    .w3-#{$size}-grid  { display: grid !important; }
+    
+  }
+}

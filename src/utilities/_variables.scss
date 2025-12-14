@@ -68,3 +68,15 @@
   --w3-shadow-l:  0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   --w3-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
+
+/* 6. BREAKPOINTS (Mobile-First) */
+:root {
+  /* s (Small/Mobile): Default (0px+)
+    m (Medium/Tablet): 600px+
+    l (Large/Desktop): 992px+
+    xl (Extra Large): 1200px+
+  */
+  --w3-bp-m:  600px;
+  --w3-bp-l:  992px;
+  --w3-bp-xl: 1200px;
+}

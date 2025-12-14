@@ -1,6 +1,8 @@
+@use 'sass:map';
 @use 'variables';
+@use 'breakpoints' as *;
 
-// 1. Define the Map (Short Code -> Variable)
+// 1. DATA MAPS
 $spacing-map: (
   'xxs': var(--w3-s-xxs),
   'xs':  var(--w3-s-xs),
@@ -13,66 +15,74 @@ $spacing-map: (
   '4xl': var(--w3-s-4xl)
 );
 
-// 2. Define Verbose Mapping (Short Code -> Readable Name)
-// STRATEGY: Use full words for core sizes (match W3 style), use T-shirt codes for extremes (shortest understandable).
 $verbose-names: (
-  'xxs': 'xxs',      // Was 'xxsmall'
-  'xs':  'xs',       // Was 'xsmall'
-  's':   'small',    // Keep 'small' for classic W3 readability
-  'm':   'medium',   // Keep 'medium'
-  'l':   'large',    // Keep 'large'
-  'xl':  'xl',       // Was 'xlarge'
-  'xxl': 'xxl',      // Was 'xxlarge'
-  '3xl': '3xl',      // Was '3xlarge'
-  '4xl': '4xl'       // Was '4xlarge'
+  'xxs': 'xxs',
+  'xs':  'xs',
+  's':   's',
+  'm':   'm',
+  'l':   'l',
+  'xl':  'xl',
+  'xxl': 'xxl',
+  '3xl': '3xl',
+  '4xl': '4xl'
 );
 
-@each $code, $value in $spacing-map {
-  // Get the readable name (e.g. "small")
-  $name: map-get($verbose-names, $code);
-
-  // --- SHORT SYNTAX (e.g. w3-p-s) ---
-  .w3-p-#{$code}  { padding: $value !important; }
-  .w3-m-#{$code}  { margin: $value !important; }
+// 2. GENERATOR MIXIN
+@mixin generate-spacing($prefix: '') {
   
-  .w3-py-#{$code} { padding-top: $value !important; padding-bottom: $value !important; }
-  .w3-px-#{$code} { padding-left: $value !important; padding-right: $value !important; }
-  .w3-my-#{$code} { margin-top: $value !important; margin-bottom: $value !important; }
-  .w3-mx-#{$code} { margin-left: $value !important; margin-right: $value !important; }
+  @each $code, $value in $spacing-map {
+    $name: map.get($verbose-names, $code);
 
-  .w3-pt-#{$code} { padding-top: $value !important; }
-  .w3-pb-#{$code} { padding-bottom: $value !important; }
-  .w3-pl-#{$code} { padding-left: $value !important; }
-  .w3-pr-#{$code} { padding-right: $value !important; }
-  
-  .w3-mt-#{$code} { margin-top: $value !important; }
-  .w3-mb-#{$code} { margin-bottom: $value !important; }
-  .w3-ml-#{$code} { margin-left: $value !important; }
-  .w3-mr-#{$code} { margin-right: $value !important; }
+    /* --- Short Syntax (Logical) --- */
+    .#{$prefix}w3-p-#{$code}  { padding: $value !important; }
+    .#{$prefix}w3-m-#{$code}  { margin: $value !important; }
+    
+    // Axis (Logical)
+    // px -> inline (left/right)
+    .#{$prefix}w3-px-#{$code} { padding-inline: $value !important; }
+    .#{$prefix}w3-mx-#{$code} { margin-inline: $value !important; }
+    // py -> block (top/bottom)
+    .#{$prefix}w3-py-#{$code} { padding-block: $value !important; }
+    .#{$prefix}w3-my-#{$code} { margin-block: $value !important; }
 
+    /* --- Verbose Aliases --- */
+    @if $name {
+      .#{$prefix}w3-padding-#{$name} { padding: $value !important; }
+      .#{$prefix}w3-margin-#{$name}  { margin: $value !important; }
 
-  // --- VERBOSE ALIASES (e.g. w3-padding-small, w3-padding-xxs) ---
-  @if $name {
-    // Padding & Margin
-    .w3-padding-#{$name} { padding: $value !important; }
-    .w3-margin-#{$name}  { margin: $value !important; }
+      // Special Case: "w3-padding" defaults to medium
+      @if $code == 'm' {
+        .#{$prefix}w3-padding { padding: $value !important; }
+        .#{$prefix}w3-margin  { margin: $value !important; }
+      }
 
-    // Special Case: "w3-padding" (without size) usually defaults to medium (16px) in Legacy.
-    // We can explicitly support that if $code == 'm'
-    @if $code == 'm' {
-      .w3-padding { padding: $value !important; }
-      .w3-margin  { margin: $value !important; }
+      // Logical Directions (Preferred)
+      .#{$prefix}w3-padding-start-#{$name}  { padding-inline-start: $value !important; }
+      .#{$prefix}w3-padding-end-#{$name}    { padding-inline-end: $value !important; }
+      .#{$prefix}w3-margin-start-#{$name}   { margin-inline-start: $value !important; }
+      .#{$prefix}w3-margin-end-#{$name}     { margin-inline-end: $value !important; }
+
+      // Physical Aliases (Mapped to Logical for Auto-RTL)
+      // If a user types "padding-left", they usually mean "padding-start" in a fluid web.
+      .#{$prefix}w3-padding-top-#{$name}    { padding-top: $value !important; }
+      .#{$prefix}w3-padding-bottom-#{$name} { padding-bottom: $value !important; }
+      .#{$prefix}w3-padding-left-#{$name}   { padding-inline-start: $value !important; }
+      .#{$prefix}w3-padding-right-#{$name}  { padding-inline-end: $value !important; }
+      
+      .#{$prefix}w3-margin-top-#{$name}     { margin-top: $value !important; }
+      .#{$prefix}w3-margin-bottom-#{$name}  { margin-bottom: $value !important; }
+      .#{$prefix}w3-margin-left-#{$name}    { margin-inline-start: $value !important; }
+      .#{$prefix}w3-margin-right-#{$name}   { margin-inline-end: $value !important; }
     }
+  }
+}
 
-    // Directional Aliases (Readable)
-    .w3-padding-top-#{$name}    { padding-top: $value !important; }
-    .w3-padding-bottom-#{$name} { padding-bottom: $value !important; }
-    .w3-padding-left-#{$name}   { padding-left: $value !important; }
-    .w3-padding-right-#{$name}  { padding-right: $value !important; }
+// 3. EXECUTE GENERATOR
+@include generate-spacing();
 
-    .w3-margin-top-#{$name}     { margin-top: $value !important; }
-    .w3-margin-bottom-#{$name}  { margin-bottom: $value !important; }
-    .w3-margin-left-#{$name}    { margin-left: $value !important; }
-    .w3-margin-right-#{$name}   { margin-right: $value !important; }
+$breakpoints-list: 'medium', 'large';
+@each $bp in $breakpoints-list {
+  @include respond-to($bp) {
+    @include generate-spacing('w3-#{$bp}-');
   }
 }

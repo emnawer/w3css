@@ -1,0 +1,73 @@
+@use 'variables';
+
+/* 1. SCREEN READER UTILITY */
+/* Hides content visually but keeps it available for assistive technology */
+.w3-sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* 2. FOCUS RINGS (Keyboard Navigation) */
+/* High-visibility focus indicators that only appear for keyboard users */
+
+:root {
+  --w3-focus-color: var(--w3-ref-blue); /* Blue for Light Mode */
+}
+
+/* Dark Mode Focus Color (Orange stands out better on dark gray) */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --w3-focus-color: #FFB300; /* Amber/Orange */
+  }
+}
+
+[data-theme="dark"] {
+  --w3-focus-color: #FFB300;
+}
+
+.w3-focus-ring:focus-visible {
+  outline: 3px solid var(--w3-focus-color) !important;
+  outline-offset: 2px !important;
+  border-radius: var(--w3-r-s) !important;
+  z-index: 10;
+}
+
+/* 3. RESPECTFUL ANIMATION (Reduced Motion) */
+/* Only animate if the user hasn't requested reduced motion in OS settings */
+
+@keyframes w3-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes w3-zoom-in {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .w3-animate-fade {
+    animation: w3-fade-in 0.3s ease-out forwards;
+  }
+  
+  .w3-animate-zoom {
+    animation: w3-zoom-in 0.2s ease-out forwards;
+  }
+}
+
+/* If user requested reduced motion, ensure no transition happens */
+@media (prefers-reduced-motion: reduce) {
+  .w3-animate-fade,
+  .w3-animate-zoom,
+  .w3-transition {
+    animation: none !important;
+    transition: none !important;
+  }
+}

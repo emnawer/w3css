@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>W3-Modern Master Test Suite</title>
+    <!-- Link your modern output -->
+    <link rel="stylesheet" href="w3-modern.css">
+    
+    <style>
+        /* Helper styles just for the demo layout */
+        .demo-box {
+            padding: 20px;
+            border: 1px solid var(--w3-border-color);
+            text-align: center;
+            font-weight: bold;
+            border-radius: var(--w3-r-m);
+        }
+    </style>
+</head>
+<body class="w3-app-bg w3-p-m">
+
+    <header class="w3-container w3-mb-l w3-pb-m w3-border-b">
+        <h1>W3-Modern Verification (v5-alpha)</h1>
+        <p class="w3-text-muted">Combined verification for Spacing, Colors, Layout, Responsive, Accessibility, RTL, and Forms.</p>
+        
+        <!-- Theme Toggles -->
+        <div class="w3-flex w3-gap-s w3-mt-m w3-flex-wrap">
+            <button onclick="document.documentElement.dataset.theme = 'light'" class="w3-padding-s w3-surface w3-border w3-focus-ring w3-round-m">Light Mode</button>
+            <button onclick="document.documentElement.dataset.theme = 'dark'" class="w3-padding-s w3-black w3-focus-ring w3-round-m">Dark Mode</button>
+            <button onclick="delete document.documentElement.dataset.theme" class="w3-padding-s w3-blue w3-focus-ring w3-round-m">System Default</button>
+        </div>
+    </header>
+
+    <!-- SECTION 1: ACCESSIBILITY (Phase 6) -->
+    <section class="w3-mb-2xl w3-surface w3-padding-l w3-border w3-round-l">
+        <h2 class="w3-text-blue">1. Accessibility Engine</h2>
+        
+        <div class="w3-mb-l">
+            <h3>A. Focus Rings (Keyboard Navigation)</h3>
+            <p>Click inside this section, then press <strong>TAB</strong> key. You should see a high-contrast ring.</p>
+            <div class="w3-flex w3-gap-m w3-flex-wrap">
+                <button class="w3-padding-s w3-blue w3-round-s w3-focus-ring">Tab to Me</button>
+                <button class="w3-padding-s w3-surface w3-border w3-round-s w3-focus-ring">Tab to Me Too</button>
+                <input type="text" placeholder="I have a focus ring..." class="w3-padding-s w3-border w3-round-s w3-focus-ring">
+            </div>
+        </div>
+
+        <div class="w3-mb-l">
+            <h3>B. Screen Reader Only</h3>
+            <p>The yellow box below contains hidden text. You should NOT see it.</p>
+            <div class="w3-border w3-padding-s w3-card-s w3-yellow">
+                Visible Text
+                <span class="w3-sr-only"> FAILURE: You should not see this text! </span>
+            </div>
+        </div>
+
+        <div>
+            <h3>C. Reduced Motion</h3>
+            <p>Refresh the page. These boxes animate in. (If your OS has "Reduce Motion" on, they appear instantly).</p>
+            <div class="w3-flex w3-gap-m">
+                <div class="demo-box w3-green w3-animate-fade">Fade In</div>
+                <div class="demo-box w3-red w3-animate-zoom">Zoom In</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: SPACING (Phase 2) -->
+    <section class="w3-mb-xl">
+        <h2>2. Spacing (Fibonacci Scale)</h2>
+        <div class="w3-flex w3-gap-m w3-flex-wrap w3-items-end">
+            <div class="demo-box w3-surface w3-padding-s">Small (s)</div>
+            <div class="demo-box w3-surface w3-padding-l">Large (l)</div>
+            <div class="demo-box w3-surface w3-padding-2xl">2XL (68px)</div>
+            <div class="demo-box w3-surface w3-px-xl">Horizontal XL</div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: COLORS & THEME (Phase 3) -->
+    <section class="w3-mb-xl">
+        <h2>3. Color System</h2>
+        <div class="w3-grid w3-grid-cols-2 w3-medium-grid-cols-4 w3-gap-m">
+            <div class="demo-box w3-red">Red</div>
+            <div class="demo-box w3-blue">Blue</div>
+            <div class="demo-box w3-green">Green</div>
+            <div class="demo-box w3-surface w3-border-theme w3-border">Surface</div>
+        </div>
+    </section>
+
+    <!-- SECTION 4: LAYOUT & RESPONSIVE (Phase 4 & 5) -->
+    <section class="w3-mb-xl">
+        <h2>4. Layout & Responsive</h2>
+        <p>Resize window to see grid changes.</p>
+        
+        <div class="w3-grid w3-gap-m w3-grid-cols-1 w3-medium-grid-cols-3 w3-large-grid-cols-4">
+            <div class="demo-box w3-surface">1</div>
+            <div class="demo-box w3-surface">2</div>
+            <div class="demo-box w3-surface">3</div>
+            <!-- This item is hidden on mobile, visible on desktop -->
+            <div class="demo-box w3-surface w3-hide w3-large-block w3-text-blue">4 (Desktop Only)</div>
+        </div>
+    </section>
+    
+    <!-- SECTION 5: LOGICAL PROPERTIES (Phase 7) -->
+    <section class="w3-mb-xl w3-surface w3-padding-l w3-border w3-round-l">
+        <h2 class="w3-text-blue">5. RTL Support (Logical Properties)</h2>
+        <p>Use the buttons below to switch the document direction. Watch the margins and padding flip!</p>
+        
+        <div class="w3-mb-m">
+            <button onclick="document.body.dir = 'ltr'" class="w3-btn w3-border w3-padding-s w3-round-s">Set LTR (Default)</button>
+            <button onclick="document.body.dir = 'rtl'" class="w3-btn w3-blue w3-padding-s w3-round-s">Set RTL (Arabic/Hebrew)</button>
+        </div>
+
+        <div class="w3-border w3-p-m w3-round-m">
+            <p><strong>Test Case:</strong> The red box below has <code>w3-margin-start-2xl</code> (68px).</p>
+            
+            <div class="w3-flex w3-items-center w3-border w3-p-s">
+                <span>Start</span>
+                <div class="w3-red w3-padding-s w3-margin-start-2xl w3-round-s">
+                    I have margin-start
+                </div>
+                <span>End</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 6: MODERN FORMS (Phase 8) -->
+    <section class="w3-mb-xl w3-surface w3-padding-l w3-border w3-round-l">
+        <h2 class="w3-text-blue">6. Modern Forms (CSS Only)</h2>
+        
+        <div class="w3-grid w3-medium-grid-cols-2 w3-gap-l">
+            
+            <!-- Standard Inputs -->
+            <div>
+                <h3 class="w3-mb-s">Text Inputs</h3>
+                <label class="w3-block w3-mb-s">
+                    <span class="w3-text-muted w3-small">Username</span>
+                    <input type="text" class="w3-input w3-mt-xs" placeholder="Enter username...">
+                </label>
+                
+                <label class="w3-block w3-mb-s">
+                    <span class="w3-text-muted w3-small">Password (Validation Test)</span>
+                    <input type="email" class="w3-input w3-mt-xs" placeholder="test@email.com" required>
+                    <small class="w3-text-muted">Try typing an invalid email to see the red icon.</small>
+                </label>
+
+                <label class="w3-block">
+                    <span class="w3-text-muted w3-small">Select Option</span>
+                    <select class="w3-select w3-mt-xs">
+                        <option>Option 1</option>
+                        <option>Option 2</option>
+                        <option>Option 3</option>
+                    </select>
+                </label>
+            </div>
+
+            <!-- Toggles & Checks -->
+            <div>
+                <h3 class="w3-mb-s">Interactive Controls</h3>
+                
+                <div class="w3-mb-m">
+                    <p class="w3-mb-s w3-text-muted">The Switch (Pure CSS)</p>
+                    <label class="w3-flex w3-items-center w3-gap-s">
+                        <input type="checkbox" class="w3-switch">
+                        <span>Enable Notifications</span>
+                    </label>
+                </div>
+
+                <div class="w3-mb-m">
+                    <p class="w3-mb-s w3-text-muted">Custom Checkboxes</p>
+                    <label class="w3-flex w3-items-center w3-mb-xs">
+                        <input type="checkbox" class="w3-check" checked>
+                        <span>I agree to terms</span>
+                    </label>
+                    <label class="w3-flex w3-items-center">
+                        <input type="checkbox" class="w3-check">
+                        <span>Subscribe to newsletter</span>
+                    </label>
+                </div>
+
+                <div>
+                    <p class="w3-mb-s w3-text-muted">Custom Radios</p>
+                    <label class="w3-flex w3-items-center w3-mb-xs">
+                        <input type="radio" name="plan" class="w3-radio" checked>
+                        <span>Free Plan</span>
+                    </label>
+                    <label class="w3-flex w3-items-center">
+                        <input type="radio" name="plan" class="w3-radio">
+                        <span>Pro Plan</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>

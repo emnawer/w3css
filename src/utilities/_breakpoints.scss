@@ -1,0 +1,29 @@
+@use 'sass:map'; // FIX: Import map module
+@use 'variables';
+
+// 1. Define Breakpoint Map (Matches CSS Variables)
+$breakpoints: (
+  'medium': 600px,
+  'large':  992px,
+  'xlarge': 1200px
+);
+
+// 2. The Mixin
+@mixin respond-to($breakpoint) {
+  // FIX: Use map.has-key
+  @if map.has-key($breakpoints, $breakpoint) {
+    // FIX: Use map.get
+    $value: map.get($breakpoints, $breakpoint);
+    
+    @media screen and (min-width: $value) {
+      @content;
+    }
+  }
+  
+  // Custom value support
+  @else {
+    @media screen and (min-width: $breakpoint) {
+      @content;
+    }
+  }
+}
