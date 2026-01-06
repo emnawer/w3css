@@ -1,0 +1,63 @@
+@use 'sass:map';
+@use 'variables';
+@use 'breakpoints' as *;
+
+/* 1. POSITION TYPES */
+.w3-static   { position: static !important; }
+.w3-fixed    { position: fixed !important; }
+.w3-absolute { position: absolute !important; }
+.w3-relative { position: relative !important; }
+.w3-sticky   { position: sticky !important; }
+
+/* 2. Z-INDEX (Standard Numeric Scale) */
+.w3-z-0  { z-index: 0 !important; }
+.w3-z-10 { z-index: 10 !important; }
+.w3-z-20 { z-index: 20 !important; }
+.w3-z-30 { z-index: 30 !important; }
+.w3-z-40 { z-index: 40 !important; }
+.w3-z-50 { z-index: 50 !important; }
+.w3-z-auto { z-index: auto !important; }
+
+
+/* 3. COORDINATES GENERATOR */
+/* Uses the Fibonacci Spacing Scale (Unified) */
+$coord-map: (
+  '0':   0,
+  'xxs': var(--w3-s-xxs),
+  'xs':  var(--w3-s-xs),
+  's':   var(--w3-s-s),
+  'm':   var(--w3-s-m),
+  'l':   var(--w3-s-l),
+  'xl':  var(--w3-s-xl),
+  'xxl': var(--w3-s-xxl)
+);
+
+@mixin generate-position($prefix: '') {
+  
+  @each $name, $val in $coord-map {
+    /* Physical */
+    .#{$prefix}w3-top-#{$name}    { top: $val !important; }
+    .#{$prefix}w3-bottom-#{$name} { bottom: $val !important; }
+    
+    /* Logical (RTL Support) */
+    .#{$prefix}w3-start-#{$name}  { inset-inline-start: $val !important; }
+    .#{$prefix}w3-end-#{$name}    { inset-inline-end: $val !important; }
+    
+    /* Inset (All sides) */
+    .#{$prefix}w3-inset-#{$name}  { inset: $val !important; }
+    
+    /* Legacy/Physical Left/Right aliases (mapped to logical for safety) */
+    .#{$prefix}w3-left-#{$name}   { inset-inline-start: $val !important; }
+    .#{$prefix}w3-right-#{$name}  { inset-inline-end: $val !important; }
+  }
+}
+
+/* 4. EXECUTE (Responsive) */
+@include generate-position();
+
+$breakpoints-list: 'medium', 'large';
+@each $bp in $breakpoints-list {
+  @include respond-to($bp) {
+    @include generate-position('w3-#{$bp}-');
+  }
+}

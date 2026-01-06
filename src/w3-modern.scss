@@ -8,7 +8,15 @@
 @use 'utilities/breakpoints'; // <--- (Must be before display)
 @use 'utilities/spacing';
 @use 'utilities/colors';
+@use 'utilities/typography';
 @use 'utilities/layout';
+@use 'utilities/sizing';
+@use 'utilities/position';
+@use 'utilities/visuals';
+@use 'utilities/data-display';
+@use 'utilities/motion';
+@use 'utilities/interactivity';
+@use 'utilities/buttons'; // <--- NEW!
 @use 'utilities/effects';
 @use 'utilities/display';
 @use 'utilities/accessibility';

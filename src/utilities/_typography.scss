@@ -1,0 +1,87 @@
+@use 'variables';
+
+/* 1. FONT FAMILY */
+.w3-sans  { font-family: var(--w3-font-sans) !important; }
+.w3-serif { font-family: var(--w3-font-serif) !important; }
+.w3-mono  { font-family: var(--w3-font-mono) !important; }
+
+/* 2. FONT SIZE (T-Shirt Sizes) */
+$text-map: (
+  'xs':  var(--w3-text-xs),
+  's':   var(--w3-text-s),
+  'm':   var(--w3-text-m),
+  'l':   var(--w3-text-l),
+  'xl':  var(--w3-text-xl),
+  'xxl': var(--w3-text-xxl),
+  '3xl': var(--w3-text-3xl),
+  '4xl': var(--w3-text-4xl),
+  '5xl': var(--w3-text-5xl),
+  '6xl': var(--w3-text-6xl)
+);
+
+@each $name, $value in $text-map {
+  .w3-text-#{$name} { font-size: $value !important; }
+}
+
+/* 3. FONT WEIGHT */
+.w3-weight-normal { font-weight: var(--w3-fw-normal) !important; }
+.w3-weight-bold   { font-weight: var(--w3-fw-bold) !important; }
+.w3-weight-bolder { font-weight: var(--w3-fw-bolder) !important; }
+.w3-weight-light  { font-weight: var(--w3-fw-light) !important; }
+.w3-weight-lighter{ font-weight: var(--w3-fw-lighter) !important; }
+
+/* Short Aliases (User Request) */
+.w3-bold   { @extend .w3-weight-bold; }
+.w3-bolder { @extend .w3-weight-bolder; }
+.w3-light  { @extend .w3-weight-light; }
+.w3-lighter{ @extend .w3-weight-lighter; }
+.w3-normal { @extend .w3-weight-normal; } /* Common "reset" for weight */
+
+
+/* 4. FONT STYLE */
+.w3-italic  { font-style: italic !important; }
+.w3-oblique { font-style: oblique !important; }
+.w3-style-normal { font-style: normal !important; } /* Resets italics */
+
+
+/* 5. FONT FEATURES (Modern/Advanced) */
+/* Tabular Numbers: Great for data tables/timers (numbers line up) */
+.w3-tnum { font-variant-numeric: tabular-nums !important; }
+
+/* Fractions: Turns "1/2" into a proper fraction glyph */
+.w3-frac { font-variant-numeric: diagonal-fractions !important; }
+
+/* Swash: Fancy flourishes (if font supports it) */
+.w3-swsh { font-feature-settings: "swsh" 1 !important; }
+
+/* Historical: Old style glyphs */
+.w3-hist { font-feature-settings: "hist" 1 !important; }
+
+
+/* 6. EXTRA PROPERTIES */
+
+/* Text Alignment */
+.w3-align-center { text-align: center !important; }
+.w3-align-left   { text-align: left !important; }
+.w3-align-right  { text-align: right !important; }
+.w3-align-justify{ text-align: justify !important; }
+
+/* Decoration */
+.w3-underline    { text-decoration: underline !important; }
+.w3-strike       { text-decoration: line-through !important; }
+.w3-no-underline { text-decoration: none !important; }
+
+/* Transform */
+.w3-uppercase  { text-transform: uppercase !important; }
+.w3-lowercase  { text-transform: lowercase !important; }
+.w3-capitalize { text-transform: capitalize !important; }
+
+/* Leading (Line Height) */
+.w3-leading-s { line-height: var(--w3-leading-s) !important; }
+.w3-leading-m { line-height: var(--w3-leading-m) !important; }
+.w3-leading-l { line-height: var(--w3-leading-l) !important; }
+
+/* Tracking (Letter Spacing) */
+.w3-track-s { letter-spacing: var(--w3-track-s) !important; }
+.w3-track-m { letter-spacing: var(--w3-track-m) !important; }
+.w3-track-l { letter-spacing: var(--w3-track-l) !important; }

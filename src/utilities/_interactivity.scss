@@ -1,0 +1,45 @@
+@use 'sass:map';
+
+/* 1. OPACITY */
+/* Maps 0-100 scale to decimal values */
+$opacity-map: (
+  '0':   0,
+  '25':  0.25,
+  '50':  0.5,
+  '75':  0.75,
+  '100': 1
+);
+
+@each $name, $value in $opacity-map {
+  /* Static State */
+  .w3-opacity-#{$name} { opacity: $value !important; }
+  
+  /* Hover State (e.g., w3-hover-opacity-100) */
+  .w3-hover-opacity-#{$name}:hover { opacity: $value !important; }
+}
+
+/* Legacy Compatibility Alias */
+.w3-hover-opacity-off:hover { opacity: 1 !important; }
+
+
+/* 2. CURSOR CONTROL */
+$cursors: auto, default, pointer, wait, text, move, help, not-allowed;
+
+@each $cursor in $cursors {
+  .w3-cursor-#{$cursor} { cursor: $cursor !important; }
+}
+
+
+/* 3. USER SELECT */
+/* Controls whether user can highlight text */
+$selects: none, text, all, auto;
+
+@each $val in $selects {
+  .w3-select-#{$val} { user-select: $val !important; }
+}
+
+
+/* 4. POINTER EVENTS */
+/* Controls whether element reacts to clicks */
+.w3-pointer-none { pointer-events: none !important; }
+.w3-pointer-auto { pointer-events: auto !important; }

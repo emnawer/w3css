@@ -1,0 +1,73 @@
+@use 'variables';
+
+/* 1. TRANSITIONS */
+/* Standard transition sets */
+.w3-transition {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.w3-transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.w3-transition-none { transition-property: none !important; }
+
+/* Durations (T-Shirt Sizing logic) */
+$durations: (
+  'fast': 75ms,
+  'normal': 150ms,
+  'slow': 300ms,
+  'slower': 500ms,
+  'slowest': 1000ms
+);
+
+@each $name, $val in $durations {
+  .w3-duration-#{$name} { transition-duration: $val !important; }
+}
+
+/* Timing Functions */
+.w3-ease-linear { transition-timing-function: linear !important; }
+.w3-ease-in     { transition-timing-function: cubic-bezier(0.4, 0, 1, 1) !important; }
+.w3-ease-out    { transition-timing-function: cubic-bezier(0, 0, 0.2, 1) !important; }
+.w3-ease-in-out { transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important; }
+
+
+/* 2. TRANSFORMS */
+/* Scale */
+$scales: (
+  '0': 0,
+  '50': 0.5,
+  '75': 0.75,
+  '90': 0.9,
+  '95': 0.95,
+  '100': 1,
+  '105': 1.05,
+  '110': 1.1,
+  '125': 1.25,
+  '150': 1.5
+);
+
+@each $name, $val in $scales {
+  .w3-scale-#{$name} { transform: scale($val) !important; }
+  .w3-hover-scale-#{$name}:hover { transform: scale($val) !important; }
+}
+
+/* Rotate */
+$rotates: (
+  '0': 0deg,
+  '45': 45deg,
+  '90': 90deg,
+  '180': 180deg,
+  '-45': -45deg,
+  '-90': -90deg,
+  '-180': -180deg
+);
+
+@each $name, $val in $rotates {
+  .w3-rotate-#{$name} { transform: rotate($val) !important; }
+  .w3-hover-rotate-#{$name}:hover { transform: rotate($val) !important; }
+}

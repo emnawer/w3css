@@ -7,7 +7,7 @@ WORKDIR /app
 # 1. Install Dependencies
 # We copy package files first to leverage caching
 COPY package*.json ./
-RUN npm install
+RUN npm install -g sass
 
 # 2. Copy Source Code
 # This copies your root w3.css, src folder, and everything else

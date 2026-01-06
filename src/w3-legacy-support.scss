@@ -1,0 +1,72 @@
+/* W3-LEGACY SUPPORT (Sidecar)
+   Include this file AFTER w3-modern.css to support v4 classes.
+   This restores:
+   1. Numeric Spacing (w3-padding-16, w3-margin-32)
+   2. Float-based Grid (w3-row, w3-col)
+   3. Legacy Font Sizes (w3-large = 18px)
+*/
+
+@use 'utilities/variables'; // Uses whatever variables are currently active (Modern or v4)
+
+/* 1. NUMERIC SPACING SHIM */
+/* Maps legacy pixels to the closest modern variable */
+$legacy-spacing: (
+  '0':  0px,
+  '4':  var(--w3-s-xxs), /* 4px */
+  '8':  var(--w3-s-xs),  /* 8px */
+  '12': var(--w3-s-s),   /* 10px/12px */
+  '16': var(--w3-s-m),   /* 16px */
+  '24': var(--w3-s-l),   /* 26px/24px */
+  '32': var(--w3-s-xl),  /* 42px/32px */
+  '48': var(--w3-s-xxl), /* 68px/48px */
+  '64': var(--w3-s-4xl)  /* 64px */
+);
+
+@each $num, $var in $legacy-spacing {
+  .w3-padding-#{$num} { padding: $var !important; }
+  .w3-margin-#{$num}  { margin: $var !important; }
+  
+  .w3-margin-top-#{$num}    { margin-top: $var !important; }
+  .w3-margin-bottom-#{$num} { margin-bottom: $var !important; }
+  .w3-margin-left-#{$num}   { margin-left: $var !important; }
+  .w3-margin-right-#{$num}  { margin-right: $var !important; }
+}
+
+/* 2. LEGACY GRID (Floats) */
+/* Essential to keep old layouts from breaking */
+.w3-row:after, .w3-row-padding:after,
+.w3-container:after, .w3-bar:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.w3-col {
+  float: left;
+  width: 100%;
+}
+
+/* Legacy Columns (s1..s12, m1..m12, l1..l12) */
+@for $i from 1 through 12 {
+  $width: (100% / 12) * $i;
+  
+  .w3-col.s#{$i} { width: $width; }
+  
+  @media (min-width: 601px) {
+    .w3-col.m#{$i} { width: $width; }
+  }
+  
+  @media (min-width: 993px) {
+    .w3-col.l#{$i} { width: $width; }
+  }
+}
+
+/* 3. LEGACY HELPERS */
+.w3-left  { float: left !important; }
+.w3-right { float: right !important; }
+.w3-hide-small { display: none !important; } /* Simplistic override */
+
+/* Restore Rest/Hide logic for legacy breakpoints if needed */
+@media (max-width: 600px) { .w3-hide-small { display: none !important; } }
+@media (min-width: 601px) and (max-width: 992px) { .w3-hide-medium { display: none !important; } }
+@media (min-width: 993px) { .w3-hide-large { display: none !important; } }

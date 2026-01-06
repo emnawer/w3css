@@ -1,0 +1,84 @@
+@use 'variables';
+
+/* 1. TABLES */
+.w3-table, .w3-table-all {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  display: table;
+}
+
+.w3-table tr, .w3-table-all tr {
+  border-bottom: 1px solid var(--w3-border-color);
+}
+
+/* Table Cells */
+.w3-table td, .w3-table th, 
+.w3-table-all td, .w3-table-all th {
+  padding: var(--w3-s-s); /* 10px */
+  display: table-cell;
+  text-align: left;
+  vertical-align: middle;
+}
+
+/* Table All (Bordered & Striped) */
+.w3-table-all {
+  border: 1px solid var(--w3-border-color);
+}
+
+/* Striping (Zebra) */
+.w3-striped tbody tr:nth-child(even),
+.w3-table-all tr:nth-child(even) {
+  background-color: var(--w3-bg-surface);
+}
+
+/* Hover Effect */
+.w3-hoverable tbody tr:hover,
+.w3-ul.w3-hoverable li:hover {
+  background-color: color-mix(in srgb, var(--w3-bg-surface), var(--w3-text-primary) 5%);
+}
+
+.w3-centered tr th, 
+.w3-centered tr td { 
+  text-align: center; 
+}
+
+/* 2. LISTS */
+.w3-ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.w3-ul li {
+  padding: var(--w3-s-s) var(--w3-s-m); /* 10px 16px */
+  border-bottom: 1px solid var(--w3-border-color);
+}
+
+.w3-ul li:last-child {
+  border-bottom: none;
+}
+
+/* 3. BADGES & TAGS */
+.w3-badge, .w3-tag {
+  background-color: var(--w3-ref-black);
+  color: var(--w3-ref-white);
+  display: inline-block;
+  padding-inline: var(--w3-s-xs); /* 8px */
+  text-align: center;
+  font-size: var(--w3-text-s);
+  line-height: 1.5;
+}
+
+.w3-badge {
+  border-radius: var(--w3-r-full); /* Circle/Pill */
+}
+
+.w3-tag {
+  border-radius: var(--w3-r-s); /* Rounded Rect */
+}
+
+/* Size Modifiers for Badges */
+.w3-badge.w3-tiny { font-size: var(--w3-text-xxs); padding-inline: var(--w3-s-xxs); }
+.w3-badge.w3-small { font-size: var(--w3-text-xs); }
+.w3-badge.w3-large { font-size: var(--w3-text-l); padding-inline: var(--w3-s-s); }

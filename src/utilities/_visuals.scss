@@ -1,0 +1,74 @@
+@use 'variables';
+@use 'breakpoints' as *;
+
+/* 1. OVERFLOW */
+$overflows: visible, hidden, scroll, auto;
+
+@mixin generate-overflow($prefix: '') {
+  @each $val in $overflows {
+    .#{$prefix}w3-overflow-#{$val}   { overflow: $val !important; }
+    .#{$prefix}w3-overflow-x-#{$val} { overflow-x: $val !important; }
+    .#{$prefix}w3-overflow-y-#{$val} { overflow-y: $val !important; }
+  }
+}
+
+/* 2. OBJECT FIT (Images/Videos) */
+$fits: contain, cover, fill, scale-down, none;
+
+@mixin generate-object-fit($prefix: '') {
+  @each $val in $fits {
+    .#{$prefix}w3-object-#{$val} { object-fit: $val !important; }
+  }
+  /* Object Position */
+  .#{$prefix}w3-object-center { object-position: center !important; }
+  .#{$prefix}w3-object-top    { object-position: top !important; }
+  .#{$prefix}w3-object-bottom { object-position: bottom !important; }
+}
+
+/* 3. BACKGROUND UTILITIES */
+/* Size */
+.w3-bg-auto    { background-size: auto !important; }
+.w3-bg-cover   { background-size: cover !important; }
+.w3-bg-contain { background-size: contain !important; }
+
+/* Position */
+.w3-bg-center  { background-position: center !important; }
+.w3-bg-top     { background-position: top !important; }
+.w3-bg-bottom  { background-position: bottom !important; }
+.w3-bg-left    { background-position: left !important; }
+.w3-bg-right   { background-position: right !important; }
+
+/* Repeat */
+.w3-bg-no-repeat { background-repeat: no-repeat !important; }
+.w3-bg-repeat    { background-repeat: repeat !important; }
+.w3-bg-repeat-x  { background-repeat: repeat-x !important; }
+.w3-bg-repeat-y  { background-repeat: repeat-y !important; }
+
+/* Attachment */
+.w3-bg-fixed   { background-attachment: fixed !important; }
+.w3-bg-scroll  { background-attachment: scroll !important; }
+
+/* 4. BORDER STYLES & WIDTHS */
+/* Styles */
+$border-styles: solid, dashed, dotted, double, none;
+@each $style in $border-styles {
+  .w3-border-#{$style} { border-style: $style !important; }
+}
+
+/* Widths (Fibonacci-ish: 2, 4, 8px) */
+.w3-border-2 { border-width: 2px !important; }
+.w3-border-4 { border-width: 4px !important; }
+.w3-border-8 { border-width: 8px !important; }
+
+
+/* EXECUTE RESPONSIVE GENERATORS */
+@include generate-overflow();
+@include generate-object-fit();
+
+$breakpoints-list: 'medium', 'large';
+@each $bp in $breakpoints-list {
+  @include respond-to($bp) {
+    @include generate-overflow('w3-#{$bp}-');
+    @include generate-object-fit('w3-#{$bp}-');
+  }
+}

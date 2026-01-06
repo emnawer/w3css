@@ -1,20 +1,31 @@
-/* Global Design Tokens
-  These allow users to change the framework without recompiling SASS.
+/* Rules:
+   - Base Unit (m): 16px
+   - Scale Factor: ~1.618 (Golden Ratio)
+   - T-Shirt Sizes: XXS, XS, S, M, L, XL, XXL
+   - Experimental: 3XL, 4XL
 */
+
+/* 1. SPACING & SIZING TOKENS (Modern Golden Ratio Scale) */
 :root {
-  /* The Base Spacing Scale */
-  --w3-s-xxs:  6px;
-  --w3-s-xs:   9px;
-  --w3-s-s:   15px;
-  --w3-s-m:   24px; /* base for fibonacci scale */
-  --w3-s-l:   39px;
-  --w3-s-xl:  63px;
-  --w3-s-xxl: 102px;
-  --w3-s-3xl: 164px; /* experimental */
-  --w3-s-4xl: 266px; /* experimental */
+  /* The Micro Scale */
+  --w3-s-xxs:  4px;   /* Fine detail */
+  --w3-s-xs:   8px;   /* Half base */
+  --w3-s-s:    10px;  /* 16 / 1.618 = 9.88 */
+  
+  /* The Base Scale */
+  --w3-s-m:    16px;  /* Base Unit */
+  --w3-s-l:    26px;  /* 16 * 1.618 = 25.8 */
+  
+  /* The Macro Scale */
+  --w3-s-xl:   42px;  /* 26 * 1.618 = 42.0 */
+  --w3-s-xxl:  68px;  /* 42 * 1.618 = 67.9 */
+
+  /* Experimental / Hero Sizes */
+  --w3-s-3xl:  110px; /* 68 * 1.618 = 110.0 */
+  --w3-s-4xl:  177px; /* 110 * 1.618 = 177.9 */
 }
 
-/* 2. COLOR PALETTE (The Raw Paint) */
+/* 2. COLOR PALETTE */
 :root {
   --w3-ref-white: #ffffff;
   --w3-ref-black: #000000;
@@ -35,6 +46,7 @@
   --w3-text-primary: var(--w3-ref-black);
   --w3-text-secondary: var(--w3-ref-gray-800);
   --w3-border-color: var(--w3-ref-gray-100);
+  --w3-focus-color: var(--w3-ref-blue);
 }
 
 /* 4. DARK MODE */
@@ -45,6 +57,7 @@
     --w3-text-primary: var(--w3-ref-white);
     --w3-text-secondary: var(--w3-ref-gray-100);
     --w3-border-color: var(--w3-ref-gray-800);
+    --w3-focus-color: #FFB300;
   }
 }
 
@@ -54,29 +67,82 @@
   --w3-text-primary: var(--w3-ref-white);
   --w3-text-secondary: var(--w3-ref-gray-100);
   --w3-border-color: var(--w3-ref-gray-800);
+  --w3-focus-color: #FFB300;
 }
 
 /* 5. VISUAL EFFECTS */
 :root {
-  --w3-r-s:  4px;
-  --w3-r-m:  8px;
-  --w3-r-l:  16px;
+  /* Radius Scale */
+  --w3-r-xxs:  0.16rem;
+  --w3-r-xs:   0.24rem;
+  --w3-r-s:    0.38rem;
+  --w3-r-m:    0.62rem;
+  --w3-r-l:    1rem;
+  --w3-r-xl:   1.62rem;
+  --w3-r-xxl:  2.6rem;
   --w3-r-full: 9999px;
 
-  --w3-shadow-s:  0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-  --w3-shadow-m:  0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --w3-shadow-l:  0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  --w3-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  /* Shadow Scale */
+  --w3-shadow-xxs: 0 .09rem .16rem -.09rem rgba(0, 0, 0, 0.62);
+  --w3-shadow-xs:  0 .16rem .24rem -.16rem rgba(0, 0, 0, 0.62);
+  --w3-shadow-s:   0 .24rem .38rem -.24rem rgba(0, 0, 0, 0.62);
+  --w3-shadow-m:   0 .38rem .62rem -.38rem rgba(0, 0, 0, 0.62);
+  --w3-shadow-l:   0 .62rem 1rem -.62rem rgba(0, 0, 0, 0.62);
+  --w3-shadow-xl:  0 1rem 1.62rem -1rem rgba(0, 0, 0, 0.62);
+  --w3-shadow-xxl: 0 1.62rem 2.6rem -1.62rem rgba(0, 0, 0, 0.62);
 }
 
-/* 6. BREAKPOINTS (Mobile-First) */
+/* 6. BREAKPOINTS */
 :root {
-  /* s (Small/Mobile): Default (0px+)
-    m (Medium/Tablet): 600px+
-    l (Large/Desktop): 992px+
-    xl (Extra Large): 1200px+
-  */
-  --w3-bp-m:  600px;
-  --w3-bp-l:  992px;
-  --w3-bp-xl: 1200px;
+  /* XS (Wearables): < 576px */
+  --w3-bp-xs: 320px;
+  /* S (Default/Mobile): 576px+ */
+  --w3-bp-s:  576px;
+  /* M (Tablet): 768px+ */
+  --w3-bp-m:  768px;
+  /* L (FHD): 1920px+ */
+  --w3-bp-l:  1920px;
+  /* XL (4K+): 3840px+ */
+  --w3-bp-xl: 3840px;
+}
+
+/* 7. TYPOGRAPHY SCALES (Golden Ratio ~1.618) */
+:root {
+  --w3-font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --w3-font-serif: Georgia, Cambria, "Times New Roman", Times, serif;
+  --w3-font-mono: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+  /* Font Size Scale (Base 1rem) */
+  --w3-text-xxs:  0.236rem;
+  --w3-text-xs:   0.382rem;
+  --w3-text-s:    0.618rem;
+  --w3-text-m:    1rem;    /* Base */
+  --w3-text-l:    1.618rem;
+  --w3-text-xl:   2.618rem;
+  --w3-text-xxl:  4.236rem;
+  
+  /* Font Weight */
+  --w3-fw-lighter: 300;
+  --w3-fw-light:   400;
+  --w3-fw-normal:  400;
+  --w3-fw-bold:    700;
+  --w3-fw-bolder:  900;
+
+  /* Line Height (Base 1.38) */
+  --w3-leading-xxs: 0.32;
+  --w3-leading-xs:  0.52;
+  --w3-leading-s:   0.85;
+  --w3-leading-m:   1.38; /* Base */
+  --w3-leading-l:   2.23;
+  --w3-leading-xl:  3.61;
+  --w3-leading-xxl: 5.84;
+  
+  /* Letter Spacing / Tracking (Base 0, Step ~0.05em * Phi) */
+  --w3-track-xxs: -0.131em;
+  --w3-track-xs:  -0.081em;
+  --w3-track-s:   -0.05em;
+  --w3-track-m:   0em;    /* Base */
+  --w3-track-l:   0.05em;
+  --w3-track-xl:  0.081em;
+  --w3-track-xxl: 0.131em;
 }
