@@ -1,4 +1,13 @@
-/* MODERN RESET */
+/* MODERN RESET + SEMANTIC ELEMENT STYLES (Zero-Config)
+   ======================================================
+   In W3-Modern, semantic HTML elements are styled by default.
+   No classes needed for basic components.
+
+   If you prefer class-based syntax (e.g. <div class="w3-button">),
+   include w3-legacy-support.css after w3-modern.css.
+   ====================================================== */
+
+/* === RESET === */
 html {
   box-sizing: border-box;
   -webkit-text-size-adjust: 100%;
@@ -6,18 +15,233 @@ html {
 *, *:before, *:after {
   box-sizing: inherit;
 }
-body {
-  margin: 0;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  line-height: 1.5;
-}
+
 hr {
   height: 0;
   color: inherit;
   border-top-width: 1px;
 }
+
 /* Responsive Images by default */
 img, video {
   max-width: 100%;
   height: auto;
+}
+
+
+/* === BASE THEME DEFAULTS === */
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.5;
+  background-color: var(--w3-bg-primary);
+  color: var(--w3-text-primary);
+}
+
+/* Semantic layout elements get surface background */
+article, aside, details, figcaption, figure,
+footer, header, main, menu, nav, section {
+  background-color: var(--w3-bg-surface);
+  color: var(--w3-text-primary);
+}
+
+
+/* === BUTTONS === */
+
+button,
+[type="button"], [type="submit"], [type="reset"] {
+  border: none;
+  display: inline-block;
+  padding: var(--w3-s-s) var(--w3-s-m);
+  vertical-align: middle;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  background-color: inherit;
+  text-align: center;
+  cursor: pointer;
+  white-space: nowrap;
+  border-radius: var(--w3-r-s);
+  transition: background-color 0.2s, box-shadow 0.2s, transform 0.1s;
+  font-family: inherit;
+  font-size: inherit;
+
+  &:hover { box-shadow: var(--w3-shadow-m); }
+  /* Specific hover: bg change (matches old w3-button behavior) */
+  &:hover {
+    color: var(--w3-ref-black);
+    background-color: var(--w3-ref-gray-100);
+  }
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+    box-shadow: none;
+  }
+}
+
+
+/* === TABLES === */
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  display: table;
+  border: 1px solid var(--w3-border-color);
+
+  th, td {
+    padding: var(--w3-s-s);
+    display: table-cell;
+    text-align: left;
+    vertical-align: middle;
+  }
+  tr { border-bottom: 1px solid var(--w3-border-color); }
+  tbody tr:nth-child(even) { background-color: var(--w3-bg-surface); }
+  tbody tr:hover {
+    background-color: color-mix(in srgb, var(--w3-bg-surface), var(--w3-text-primary) 5%);
+  }
+}
+
+
+/* === LISTS === */
+
+ul, ol {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    padding: var(--w3-s-s) var(--w3-s-m);
+    border-bottom: 1px solid var(--w3-border-color);
+    &:last-child { border-bottom: none; }
+    &:hover {
+      background-color: color-mix(in srgb, var(--w3-bg-surface), var(--w3-text-primary) 5%);
+    }
+  }
+}
+
+
+/* === FORM INPUTS === */
+
+input, select, textarea {
+  display: block;
+  width: 100%;
+  padding: var(--w3-s-s);
+  border: 1px solid var(--w3-border-color);
+  background-color: var(--w3-bg-surface);
+  color: var(--w3-text-primary);
+  border-radius: var(--w3-r-s);
+  outline: none;
+  font-family: inherit;
+  transition: border-color 0.2s, box-shadow 0.2s;
+
+  &:focus {
+    border-color: var(--w3-focus-color);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--w3-focus-color), transparent 80%);
+  }
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background-color: color-mix(in srgb, var(--w3-bg-surface), var(--w3-text-primary) 10%);
+  }
+  /* Validation */
+  &:invalid:not(:placeholder-shown) {
+    border-color: var(--w3-ref-red);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23f44336'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linecap='round' d='M6 3.5v3M6 8.5h.01'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 2.5em;
+  }
+  &:valid:not(:placeholder-shown) {
+    border-color: var(--w3-ref-green);
+  }
+}
+
+textarea { resize: vertical; min-height: 100px; }
+
+/* Checkbox */
+input[type="checkbox"] {
+  appearance: none;
+  display: inline-grid;
+  place-content: center;
+  width: 1.2em;
+  height: 1.2em;
+  border: 1px solid var(--w3-text-secondary);
+  border-radius: var(--w3-r-s);
+  background-color: var(--w3-bg-surface);
+  color: var(--w3-focus-color);
+  cursor: pointer;
+  margin: 0;
+
+  &::before {
+    content: "";
+    width: 0.65em;
+    height: 0.65em;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 1em 1em currentColor;
+    transform-origin: center;
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+  }
+  &:checked { border-color: currentColor; }
+  &:checked::before { transform: scale(1); }
+  &:focus-visible {
+    outline: 2px solid var(--w3-focus-color);
+    outline-offset: 2px;
+  }
+}
+
+/* Radio */
+input[type="radio"] {
+  appearance: none;
+  display: inline-grid;
+  place-content: center;
+  width: 1.2em;
+  height: 1.2em;
+  border: 1px solid var(--w3-text-secondary);
+  border-radius: 50%;
+  background-color: var(--w3-bg-surface);
+  color: var(--w3-focus-color);
+  cursor: pointer;
+  margin: 0;
+
+  &::before {
+    content: "";
+    width: 0.65em;
+    height: 0.65em;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 1em 1em currentColor;
+    border-radius: 50%;
+  }
+  &:checked { border-color: currentColor; }
+  &:checked::before { transform: scale(1); }
+  &:focus-visible {
+    outline: 2px solid var(--w3-focus-color);
+    outline-offset: 2px;
+  }
+}
+
+
+/* === FORM LABELS & FIELDSETS === */
+
+label {
+  display: block;
+  color: var(--w3-text-secondary);
+  font-size: var(--w3-text-s);
+  margin-bottom: var(--w3-s-xxs);
+}
+
+fieldset {
+  border: 1px solid var(--w3-border-color);
+  border-radius: var(--w3-r-s);
+  padding: var(--w3-s-m);
+  margin: 0;
+}
+
+legend {
+  font-weight: var(--w3-fw-bold);
+  padding: 0 var(--w3-s-xs);
+  color: var(--w3-text-primary);
 }

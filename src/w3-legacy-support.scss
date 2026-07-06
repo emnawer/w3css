@@ -1,39 +1,251 @@
 /* W3-LEGACY SUPPORT (Sidecar)
-   Include this file AFTER w3-modern.css to support v4 classes.
-   This restores:
+   =============================
+   Include this file AFTER w3-modern.css to support v4 class-based syntax.
+
+   Modern users: just write <button>, <table>, <ul>, <input> directly.
+   Legacy users: include this file and keep using .w3-button, .w3-table, etc.
+
+   Also restores:
    1. Numeric Spacing (w3-padding-16, w3-margin-32)
    2. Float-based Grid (w3-row, w3-col)
-   3. Legacy Font Sizes (w3-large = 18px)
+   3. Legacy Helpers (w3-left, w3-right)
 */
 
-@use 'utilities/variables'; // Uses whatever variables are currently active (Modern or v4)
+@use 'utilities/variables';
 
-/* 1. NUMERIC SPACING SHIM */
-/* Maps legacy pixels to the closest modern variable */
+
+/* ====================================================
+   0. COMPONENT CLASSES (v4 Backward Compatibility)
+   ==================================================== */
+
+/* --- BUTTONS --- */
+
+.w3-btn, .w3-button {
+  border: none;
+  display: inline-block;
+  padding: var(--w3-s-s) var(--w3-s-m);
+  vertical-align: middle;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  background-color: inherit;
+  text-align: center;
+  cursor: pointer;
+  white-space: nowrap;
+  border-radius: var(--w3-r-s);
+  transition: background-color 0.2s, box-shadow 0.2s, transform 0.1s;
+  font-family: inherit;
+  font-size: inherit;
+
+  &:hover { box-shadow: var(--w3-shadow-m); }
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+    box-shadow: none;
+  }
+}
+
+/* Specific hover: bg change (w3-button) */
+.w3-button:hover {
+  color: var(--w3-ref-black) !important;
+  background-color: var(--w3-ref-gray-100) !important;
+}
+
+/* Specific hover: shadow (w3-btn) */
+.w3-btn:hover {
+  box-shadow: var(--w3-shadow-l);
+}
+
+
+/* --- TABLES --- */
+
+.w3-table, .w3-table-all {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  display: table;
+}
+
+.w3-table-all { border: 1px solid var(--w3-border-color); }
+
+.w3-table tr, .w3-table-all tr {
+  border-bottom: 1px solid var(--w3-border-color);
+}
+
+.w3-table td, .w3-table th,
+.w3-table-all td, .w3-table-all th {
+  padding: var(--w3-s-s);
+  display: table-cell;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.w3-striped tbody tr:nth-child(even),
+.w3-table-all tr:nth-child(even) {
+  background-color: var(--w3-bg-surface);
+}
+
+.w3-hoverable tbody tr:hover,
+.w3-ul.w3-hoverable li:hover {
+  background-color: color-mix(in srgb, var(--w3-bg-surface), var(--w3-text-primary) 5%);
+}
+
+.w3-centered tr th,
+.w3-centered tr td {
+  text-align: center;
+}
+
+
+/* --- LISTS --- */
+
+.w3-ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.w3-ul li {
+  padding: var(--w3-s-s) var(--w3-s-m);
+  border-bottom: 1px solid var(--w3-border-color);
+}
+
+.w3-ul li:last-child { border-bottom: none; }
+
+
+/* --- FORM INPUTS --- */
+
+.w3-input, .w3-select, .w3-textarea {
+  display: block;
+  width: 100%;
+  padding: var(--w3-s-s);
+  border: 1px solid var(--w3-border-color);
+  background-color: var(--w3-bg-surface);
+  color: var(--w3-text-primary);
+  border-radius: var(--w3-r-s);
+  outline: none;
+  font-family: inherit;
+  transition: border-color 0.2s, box-shadow 0.2s;
+
+  &:focus {
+    border-color: var(--w3-focus-color);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--w3-focus-color), transparent 80%);
+  }
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background-color: color-mix(in srgb, var(--w3-bg-surface), var(--w3-text-primary) 10%);
+  }
+  &:invalid:not(:placeholder-shown) {
+    border-color: var(--w3-ref-red);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23f44336'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linecap='round' d='M6 3.5v3M6 8.5h.01'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 2.5em;
+  }
+  &:valid:not(:placeholder-shown) { border-color: var(--w3-ref-green); }
+}
+
+.w3-textarea { resize: vertical; min-height: 100px; }
+
+.w3-check, .w3-radio {
+  appearance: none;
+  display: inline-grid;
+  place-content: center;
+  width: 1.2em;
+  height: 1.2em;
+  border: 1px solid var(--w3-text-secondary);
+  background-color: var(--w3-bg-surface);
+  color: var(--w3-focus-color);
+  cursor: pointer;
+  margin-right: 0.5em;
+
+  &::before {
+    content: "";
+    width: 0.65em;
+    height: 0.65em;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 1em 1em currentColor;
+  }
+  &:checked { border-color: currentColor; }
+  &:checked::before { transform: scale(1); }
+  &:focus-visible {
+    outline: 2px solid var(--w3-focus-color);
+    outline-offset: 2px;
+  }
+}
+
+.w3-check {
+  border-radius: var(--w3-r-s);
+  &::before {
+    transform-origin: center;
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+  }
+}
+
+.w3-radio {
+  border-radius: 50%;
+  &::before { border-radius: 50%; }
+}
+
+.w3-switch {
+  appearance: none;
+  position: relative;
+  width: 3em;
+  height: 1.5em;
+  border-radius: 2em;
+  background-color: var(--w3-border-color);
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0.1em;
+    left: 0.1em;
+    width: 1.3em;
+    height: 1.3em;
+    border-radius: 50%;
+    background-color: white;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    transition: transform 0.3s;
+  }
+  &:checked { background-color: var(--w3-focus-color); }
+  &:checked::after { transform: translateX(1.5em); }
+}
+
+
+/* ====================================================
+   1. NUMERIC SPACING SHIM
+   ==================================================== */
+
 $legacy-spacing: (
   '0':  0px,
-  '4':  var(--w3-s-xxs), /* 4px */
-  '8':  var(--w3-s-xs),  /* 8px */
-  '12': var(--w3-s-s),   /* 10px/12px */
-  '16': var(--w3-s-m),   /* 16px */
-  '24': var(--w3-s-l),   /* 26px/24px */
-  '32': var(--w3-s-xl),  /* 42px/32px */
-  '48': var(--w3-s-xxl), /* 68px/48px */
-  '64': var(--w3-s-4xl)  /* 64px */
+  '4':  var(--w3-s-xxs),
+  '8':  var(--w3-s-xs),
+  '12': var(--w3-s-s),
+  '16': var(--w3-s-m),
+  '24': var(--w3-s-l),
+  '32': var(--w3-s-xl),
+  '48': var(--w3-s-xxl),
+  '64': var(--w3-s-4xl)
 );
 
 @each $num, $var in $legacy-spacing {
   .w3-padding-#{$num} { padding: $var !important; }
   .w3-margin-#{$num}  { margin: $var !important; }
-  
+
   .w3-margin-top-#{$num}    { margin-top: $var !important; }
   .w3-margin-bottom-#{$num} { margin-bottom: $var !important; }
   .w3-margin-left-#{$num}   { margin-left: $var !important; }
   .w3-margin-right-#{$num}  { margin-right: $var !important; }
 }
 
-/* 2. LEGACY GRID (Floats) */
-/* Essential to keep old layouts from breaking */
+
+/* ====================================================
+   2. LEGACY GRID (Floats)
+   ==================================================== */
+
 .w3-row:after, .w3-row-padding:after,
 .w3-container:after, .w3-bar:after {
   content: "";
@@ -46,27 +258,21 @@ $legacy-spacing: (
   width: 100%;
 }
 
-/* Legacy Columns (s1..s12, m1..m12, l1..l12) */
 @for $i from 1 through 12 {
   $width: (100% / 12) * $i;
-  
   .w3-col.s#{$i} { width: $width; }
-  
-  @media (min-width: 601px) {
-    .w3-col.m#{$i} { width: $width; }
-  }
-  
-  @media (min-width: 993px) {
-    .w3-col.l#{$i} { width: $width; }
-  }
+  @media (min-width: 601px) { .w3-col.m#{$i} { width: $width; } }
+  @media (min-width: 993px) { .w3-col.l#{$i} { width: $width; } }
 }
 
-/* 3. LEGACY HELPERS */
+
+/* ====================================================
+   3. LEGACY HELPERS
+   ==================================================== */
+
 .w3-left  { float: left !important; }
 .w3-right { float: right !important; }
-.w3-hide-small { display: none !important; } /* Simplistic override */
 
-/* Restore Rest/Hide logic for legacy breakpoints if needed */
 @media (max-width: 600px) { .w3-hide-small { display: none !important; } }
 @media (min-width: 601px) and (max-width: 992px) { .w3-hide-medium { display: none !important; } }
 @media (min-width: 993px) { .w3-hide-large { display: none !important; } }

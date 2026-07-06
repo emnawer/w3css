@@ -1,9 +1,11 @@
 @use 'variables';
 @use 'breakpoints' as *;
 
-// 1. FLEXBOX TOOLKIT
+// ==========================================================================
+// 1. FLEXBOX & GRID UTILITIES TOOLKIT
+// ==========================================================================
 @mixin generate-layout($prefix: '') {
-  
+
   /* Flex Config */
   .#{$prefix}w3-flex      { display: flex !important; }
   .#{$prefix}w3-flex-col  { flex-direction: column !important; }
@@ -14,7 +16,7 @@
   .#{$prefix}w3-items-center { align-items: center !important; }
   .#{$prefix}w3-items-start  { align-items: flex-start !important; }
   .#{$prefix}w3-items-end    { align-items: flex-end !important; }
-  
+
   .#{$prefix}w3-justify-center { justify-content: center !important; }
   .#{$prefix}w3-justify-between{ justify-content: space-between !important; }
   .#{$prefix}w3-justify-start  { justify-content: flex-start !important; }
@@ -30,7 +32,7 @@
     display: grid !important;
     grid-template-columns: repeat(1, minmax(0, 1fr));
   }
-  
+
   @for $i from 1 through 12 {
     .#{$prefix}w3-grid-cols-#{$i} {
       grid-template-columns: repeat($i, minmax(0, 1fr)) !important;
@@ -50,7 +52,93 @@ $breakpoints-list: 'medium', 'large';
   }
 }
 
-/* 3. GAP UTILITIES */
+// ==========================================================================
+// 2. MODERN FLEX GRID (W3.CSS Name-Compatible)
+// ==========================================================================
+/* Flex Row Containers */
+.w3-row,
+.w3-row-padding {
+  display: flex !important;
+  flex-wrap: wrap !important; /* Ensures column wrappers drop down when widths exceed 100% */
+}
+
+/* Row padding modifier */
+.w3-row-padding {
+  margin-left: -8px;
+  margin-right: -8px;
+
+  > .w3-col,
+  > .w3-half, > .w3-third, > .w3-twothird,
+  > .w3-threequarter, > .w3-quarter {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+}
+
+/* Modern Flex Column Base Configuration */
+.w3-col {
+  flex-shrink: 0;   /* Prevents browser layout compression */
+  flex-grow: 0;     /* Ensures strict column fraction enforcement */
+  width: 100%;      /* Default mobile behavior fallback */
+}
+
+/* Small columns (Mobile-first base scale via SASS loop) */
+@for $i from 1 through 12 {
+  $percentage: ($i / 12) * 100%;
+
+  .w3-col.s#{$i} {
+    flex-basis: #{$percentage} !important;
+    max-width: #{$percentage} !important;
+  }
+}
+
+/* Medium columns (601px+ Tablet Viewports) */
+@media (min-width: 601px) {
+  @for $i from 1 through 12 {
+    $percentage: ($i / 12) * 100%;
+
+    .w3-col.m#{$i} {
+      flex-basis: #{$percentage} !important;
+      max-width: #{$percentage} !important;
+    }
+  }
+
+  /* Semantic layouts mapped to flex basis values */
+  .w3-quarter      { flex-basis: 25% !important; max-width: 25% !important; }
+  .w3-third        { flex-basis: 33.33333% !important; max-width: 33.33333% !important; }
+  .w3-half         { flex-basis: 50% !important; max-width: 50% !important; }
+  .w3-twothird     { flex-basis: 66.66666% !important; max-width: 66.66666% !important; }
+  .w3-threequarter { flex-basis: 75% !important; max-width: 75% !important; }
+}
+
+/* Large columns (993px+ Desktop Viewports) */
+@media (min-width: 993px) {
+  @for $i from 1 through 12 {
+    $percentage: ($i / 12) * 100%;
+
+    .w3-col.l#{$i} {
+      flex-basis: #{$percentage} !important;
+      max-width: #{$percentage} !important;
+    }
+  }
+}
+
+/* Content wrapper bounds */
+.w3-content {
+  max-width: 980px;
+  margin: auto;
+}
+
+/* Automatically consumes remaining horizontal row allocations */
+.w3-rest {
+  flex-grow: 1;
+  flex-basis: 0;
+  max-width: 100%;
+}
+
+// ==========================================================================
+// 3. GAP UTILITIES
+// ==========================================================================
 $spacing-map: (
   'xxs': var(--w3-s-xxs),
   'xs':  var(--w3-s-xs),

@@ -29,23 +29,11 @@ $verbose-names: (
 
 // 2. GENERATOR MIXIN
 @mixin generate-spacing($prefix: '') {
-  
+
   @each $code, $value in $spacing-map {
     $name: map.get($verbose-names, $code);
 
-    /* --- Short Syntax (Logical) --- */
-    .#{$prefix}w3-p-#{$code}  { padding: $value !important; }
-    .#{$prefix}w3-m-#{$code}  { margin: $value !important; }
-    
-    // Axis (Logical)
-    // px -> inline (left/right)
-    .#{$prefix}w3-px-#{$code} { padding-inline: $value !important; }
-    .#{$prefix}w3-mx-#{$code} { margin-inline: $value !important; }
-    // py -> block (top/bottom)
-    .#{$prefix}w3-py-#{$code} { padding-block: $value !important; }
-    .#{$prefix}w3-my-#{$code} { margin-block: $value !important; }
-
-    /* --- Verbose Aliases --- */
+    /* --- Verbose Aliases (Logical) --- */
     @if $name {
       .#{$prefix}w3-padding-#{$name} { padding: $value !important; }
       .#{$prefix}w3-margin-#{$name}  { margin: $value !important; }
@@ -68,7 +56,7 @@ $verbose-names: (
       .#{$prefix}w3-padding-bottom-#{$name} { padding-bottom: $value !important; }
       .#{$prefix}w3-padding-left-#{$name}   { padding-inline-start: $value !important; }
       .#{$prefix}w3-padding-right-#{$name}  { padding-inline-end: $value !important; }
-      
+
       .#{$prefix}w3-margin-top-#{$name}     { margin-top: $value !important; }
       .#{$prefix}w3-margin-bottom-#{$name}  { margin-bottom: $value !important; }
       .#{$prefix}w3-margin-left-#{$name}    { margin-inline-start: $value !important; }

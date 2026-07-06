@@ -1,59 +1,64 @@
+@use 'sass:map';
 @use 'variables';
 
-/* 1. SEMANTIC UTILITIES (Adaptive) */
-/* These change automatically in Dark Mode */
-
-.w3-app-bg {
-  background-color: var(--w3-bg-primary) !important;
-  color: var(--w3-text-primary) !important;
-}
-
-.w3-surface {
-  background-color: var(--w3-bg-surface) !important;
-  color: var(--w3-text-primary) !important;
-}
-
+/* 1. SEMANTIC TEXT UTILITIES (Adaptive) */
+/* w3-text-body resets to default body color (useful when a parent overrides it)
 .w3-text-body { color: var(--w3-text-primary) !important; }
 .w3-text-muted { color: var(--w3-text-secondary) !important; }
+*/
+
+/* Disabled elements automatically match muted text */
+.w3-disabled,
+:disabled {
+  color: var(--w3-text-secondary) !important;
+}
 
 .w3-border-theme { border-color: var(--w3-border-color) !important; }
 
 
-/* 2. STATIC PALETTE GENERATOR */
-/* These stay the same color regardless of mode (Red is always Red) */
+/* 2. STATIC + SEMANTIC PALETTE GENERATOR */
+/* Named colors stay fixed regardless of mode. Semantic colors use CSS variables for easy theming. */
 
 $palette: (
-  'red': var(--w3-ref-red),
-  'blue': var(--w3-ref-blue),
-  'green': var(--w3-ref-green),
-  'black': var(--w3-ref-black),
-  'white': var(--w3-ref-white)
+  /* Named Colors (Backward Compatible) */
+  'red':     (color: var(--w3-ref-red),    contrast: dark),
+  'blue':    (color: var(--w3-ref-blue),   contrast: dark),
+  'green':   (color: var(--w3-ref-green),  contrast: dark),
+  'black':   (color: var(--w3-ref-black),  contrast: dark),
+  'white':   (color: var(--w3-ref-white),  contrast: light),
+
+  /* Semantic Colors (Override via CSS variables) */
+  'theme':   (color: var(--w3-theme-color),  contrast: dark),
+  'gray':    (color: var(--w3-gray-color),   contrast: light),
+  'grey':    (color: var(--w3-gray-color),   contrast: light),
+  'orange':  (color: var(--w3-orange-color), contrast: light),
 );
 
-@each $name, $value in $palette {
-  
-  // Backgrounds (e.g. w3-red)
+@each $name, $props in $palette {
+  $value: map.get($props, color);
+  $contrast: map.get($props, contrast);
+
+  /* Background (e.g. w3-red, w3-theme) */
   .w3-#{$name} {
     background-color: $value !important;
-    // Simple contrast logic: if background is white, text is black
-    @if $name == 'white' { color: #000 !important; }
+    @if $contrast == 'light' { color: #000 !important; }
     @else { color: #fff !important; }
   }
 
-  // Text Colors (e.g. w3-text-red)
+  /* Text Color (e.g. w3-text-red) */
   .w3-text-#{$name} {
     color: $value !important;
   }
-  
-  // Border Colors (e.g. w3-border-red)
+
+  /* Border Color (e.g. w3-border-red) */
   .w3-border-#{$name} {
     border-color: $value !important;
   }
-  
-  // Hover States
+
+  /* Hover States */
   .w3-hover-#{$name}:hover {
     background-color: $value !important;
-    @if $name == 'white' { color: #000 !important; }
+    @if $contrast == 'light' { color: #000 !important; }
     @else { color: #fff !important; }
   }
 }
